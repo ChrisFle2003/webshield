@@ -12,5 +12,5 @@ dependencies = []
 [project.scripts]
 webshield-activate = "webshield.privileged:main"
 
-[tool.setuptools]
-packages = ["webshield"]
+[tool.setuptools.packages.find]
+where = ["src"]
