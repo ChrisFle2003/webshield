@@ -1,0 +1,37 @@
+[server]
+listen_port = 443
+server_name = "example.test"
+document_root = "/srv/example/public"
+tls = true
+certificate_path = "/etc/ssl/example/fullchain.pem"
+certificate_key_path = "/etc/ssl/example/private.key"
+
+[php]
+enabled = true
+socket_path = "/run/php/php-fpm.sock"
+allowed_extensions = [".php"]
+
+[limits]
+max_body_size = "8m"
+request_rate_per_minute = 60
+
+[security]
+deny_hidden_files = true
+deny_script_execution_in_uploads = true
+disable_command_execution = true
+
+[isolation.app]
+service_user = "webapp"
+read_only_paths = ["/srv/example"]
+read_write_paths = ["/var/lib/example/cache"]
+allowed_socket_paths = ["/run/php/php-fpm.sock"]
+outbound_network = "none"
+command_execution = false
+
+[isolation.upload]
+service_user = "webupload"
+read_only_paths = []
+read_write_paths = ["/var/lib/example/quarantine", "/var/lib/example/released"]
+allowed_socket_paths = []
+outbound_network = "none"
+command_execution = false
